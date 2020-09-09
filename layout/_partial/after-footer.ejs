@@ -64,3 +64,7 @@
 <% if (theme.canvas_bg == 1) { %>
 <%- js('/js/dz') %>
 <% } %>
+<!-- Funny Title -->
+<% if (theme.funny_title.enable) { %>
+  <%- partial('post/funnyTitle') %>
+<% } %>

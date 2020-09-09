@@ -257,3 +257,10 @@ minivaline:
     - https://cdn.jsdelivr.net/gh/MiniValine/tieba@latest
     - https://cdn.jsdelivr.net/gh/MiniValine/twemoji@latest
     - https://cdn.jsdelivr.net/gh/MiniValine/weibo@latest
+funny_title:
+  enable: true
+  prefix:
+    hidden: (╯‵□′)╯︵┻━┻) #离开页面显示标题前缀
+    focus: (●—●) #回到页面显示标题前缀
+    separator: ' | ' #前缀分隔符
+  focusTimeout: 2000 #回到页面后标题前缀显示时间 单位毫秒 若为0则不显示

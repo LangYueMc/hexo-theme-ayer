@@ -1,0 +1,79 @@
+<script>
+    /*-- 下面的代码修改自https://github.com/CC11001100/funny-title --*/
+    $(function () {
+
+        var vendorPrefix = getBrowserPrefix();
+        var eventName = visibilityEvent(vendorPrefix);
+        document.addEventListener(eventName, visibilityEventCallback);
+
+        var OriginTitle = document.title;
+        var titleTime;
+        var hiddenPlaceholder = "<%- theme.funny_title.prefix.hidden %><%- theme.funny_title.prefix.separator %>"
+        var focusPlaceholder = "<%- theme.funny_title.prefix.focus %><%- theme.funny_title.prefix.separator %>"
+
+        function visibilityEventCallback() {
+            if (document.hidden) {
+                OriginTitle = document.title.replace(hiddenPlaceholder, "").replace(focusPlaceholder, "");
+                document.title = hiddenPlaceholder + " " + OriginTitle;
+                clearTimeout(titleTime);
+            } else {
+                <% if( theme.funny_title.focusTimeout === 0 ){ %>
+                document.title = OriginTitle;
+                <% } else { %>
+                document.title = focusPlaceholder + " " + OriginTitle;
+                titleTime = setTimeout(function () {
+                    document.title = OriginTitle;
+                }, <%- theme.funny_title.focusTimeout %>);
+                <% } %>
+            }
+        }
+
+
+        /*------------------------ 下面的代码来自网络，用于解决浏览器兼容性问题 ----------------------------------*/
+
+        // Get Browser-Specifc Prefix
+        function getBrowserPrefix() {
+            // Check for the unprefixed property.
+            if ('hidden' in document) {
+                return null;
+            }
+            // All the possible prefixes.
+            var browserPrefixes = ['moz', 'ms', 'o', 'webkit'];
+            for (var i = 0; i < browserPrefixes.length; i++) {
+                var prefix = browserPrefixes[i] + 'Hidden';
+                if (prefix in document) {
+                    return browserPrefixes[i];
+                }
+            }
+            // The API is not supported in browser.
+            return null;
+        }
+
+        // Get Browser Specific Hidden Property
+        function hiddenProperty(prefix) {
+            if (prefix) {
+                return prefix + 'Hidden';
+            } else {
+                return 'hidden';
+            }
+        }
+
+        // Get Browser Specific Visibility State
+        function visibilityState(prefix) {
+            if (prefix) {
+                return prefix + 'VisibilityState';
+            } else {
+                return 'visibilityState';
+            }
+        }
+
+        // Get Browser Specific Event
+        function visibilityEvent(prefix) {
+            if (prefix) {
+                return prefix + 'visibilitychange';
+            } else {
+                return 'visibilitychange';
+            }
+        }
+    });
+</script>
